@@ -4,7 +4,7 @@ const getVisitedPageURL = (tabId, { status }) => {
   if (status !== PAGE_STATUS) return;
   
   chrome.tabs.get(tabId, function({id, url}){
-    console.log(id, url)    
+    console.log(id, url);
   });
   
 }
