@@ -1,4 +1,4 @@
-# Chrome extention: Traffic counter
+# Chrome extension: Traffic counter
 
 Count visited websites and show statistic.
 Show statistic by:

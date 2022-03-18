@@ -1,13 +1,18 @@
 {
     "name": "Chrome Traffic Counter",
-    "description": "Count visited websites per week",
+    "description": "Count visited websites",
     "version": "0.0.1",
     "manifest_version": 3,
     "background": {
-        "service_worker": "worker.js"
+        "service_worker": "./extension/worker.js"
     },
     "action": {
-        "default_popup": "main.html"
+        "default_popup": "./extension/main.html"
     },
-    "permissions": ["storage", "activeTab", "scripting", "tabs"]
+    "permissions": [
+        "activeTab", 
+        "scripting", 
+        "tabs", 
+        "storage"
+    ]
 }
