@@ -1,7 +1,8 @@
 const CopyPlugin = require("copy-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
+
 
 module.exports = {
     mode: "development",
@@ -11,7 +12,12 @@ module.exports = {
         path: path.resolve(__dirname, 'build'),
     },
     plugins: [
-        new HtmlWebpackPlugin({ template: './main.html' }),
+        new Dotenv(),
+        new HtmlWebpackPlugin({
+            template: './main.html',
+            inject: 'body',
+            enviroment: process.env.BACKEND_HOST,
+        }),
         new CopyPlugin({ patterns: ['./manifest.json'] }),
     ]
 }
