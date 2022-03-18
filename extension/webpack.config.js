@@ -1,21 +1,27 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+require('dotenv').config()
 
 
 module.exports = {
     mode: "development",
-    entry: "./worker.js",
+    entry: "./main.js",
+    resolve: {
+        extensions: [".js", ".html"],
+    },
     plugins: [
-        new Dotenv(),
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+        new CopyPlugin({ patterns: ['./manifest.json'] }),
+        new webpack.DefinePlugin({
+            "host": process.env.BACKEND_HOST,
+        }),
         new HtmlWebpackPlugin({
             template: './index.html',
-            inject: 'body',
-            enviroment: process.env.BACKEND_HOST,
+            inject: true,
         }),
-        new CopyPlugin({ patterns: ['./manifest.json'] }),
     ]
 }
+
