@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: db
+    image: mongo
+    volumes:
+      - ./data/mongo:/data/db
+    env_file:
+      - .env
+    ports:
+      - 27017:27017
+
+  web:
+    container_name: web
+    build: ./backend/
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
