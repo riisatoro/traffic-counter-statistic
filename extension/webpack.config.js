@@ -15,16 +15,22 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist')
     },
+    module: {
+        rules: [
+            {
+                test: /\.html$/,
+                loader: 'html-loader',
+                exclude: /\.html$/
+            }
+        ]
+    },
     plugins: [
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
         new CopyPlugin({ patterns: ['./manifest.json'] }),
         new CopyPlugin({ patterns: ['./main.css'] }),
-        new webpack.DefinePlugin({
-            host: process.env.BACKEND_HOST,
-        }),
         new HtmlWebpackPlugin({
             template: './index.html',
-            inject: true,
+            host: JSON.stringify(process.env.BACKEND_HOST),
         }),
     ]
 }
