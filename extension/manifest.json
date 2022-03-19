@@ -4,10 +4,10 @@
     "version": "0.0.1",
     "manifest_version": 3,
     "background": {
-        "service_worker": "./worker.js"
+        "service_worker": "./main.js"
     },
     "action": {
-        "default_popup": "./main.html"
+        "default_popup": "./index.html"
     },
     "permissions": [
         "activeTab", 

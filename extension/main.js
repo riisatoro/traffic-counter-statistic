@@ -1,6 +1,7 @@
 const PAGE_STATUS = 'complete';
 const ACCESS_KEY_STORAGE_NAME = 'traffic-counter-ext-api-key'
-const ACCESS_KEY = null
+
+let ACCESS_KEY = null
 
 
 const updateAccessKey = (result) => {
