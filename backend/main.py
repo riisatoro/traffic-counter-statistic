@@ -9,7 +9,7 @@ def _health():
     return 'ok'
 
 @app.post('/register')
-def _register():
+def _register(email):
     return 'ok'
 
 @app.post('/login')
@@ -34,8 +34,4 @@ def _get_user_statistic():
 
 @app.post('/user/details')
 def _set_user_details():
-    return 'ok'
-
-@app.get('/user/token')
-def _get_user_token():
     return 'ok'
