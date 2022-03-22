@@ -19,6 +19,24 @@ const getVisitedPageURL = (tabId, { status }) => {
 chrome.storage.sync.get(ACCESS_KEY_STORAGE_NAME, updateAccessKey)
 if (ACCESS_KEY) {
   chrome.tabs.onUpdated.addListener(getVisitedPageURL)
-} else {
-  
 }
+
+let IS_AUTHENTICATED = false;
+
+
+const listenAuthMessage = (request, sender, sendResponse) => {
+  console.log(request.message)
+  switch (request.message) {
+    case 'isAuthenticated':
+      sendResponse({ message: false });
+    default:
+      sendResponse({ message: 'unknown command' });
+  }
+  // if (request.message === 'login') {
+  //   if (IS_AUTHENTICATED) console.log('ALREADY AUTHENTICATED');
+  // } else if (request.message === 'logout') {
+  //   console.log('LOGOUT')
+  // }
+}
+
+chrome.runtime.onMessage.addListener(listenAuthMessage);

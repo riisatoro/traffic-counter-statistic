@@ -11,8 +11,10 @@
     },
     "permissions": [
         "activeTab", 
-        "scripting", 
-        "tabs", 
-        "storage"
+        "scripting",
+        "tabs",
+        "storage",
+        "scripting",
+        "identity"
     ]
 }
