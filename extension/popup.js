@@ -1,5 +1,4 @@
 let IS_AUTHENTICATED = false;
-console.log('EXT_12')
 
 // background worker response handlers
 

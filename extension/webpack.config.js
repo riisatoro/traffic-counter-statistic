@@ -17,7 +17,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
-        new CopyPlugin({ patterns: ['./authentication.js'] }),
+        new CopyPlugin({ patterns: ['./popup.js'] }),
         new CopyPlugin({ patterns: ['./manifest.json'] }),
         new CopyPlugin({ patterns: ['./main.css'] }),
         new HtmlWebpackPlugin({ template: './index.html' }),
