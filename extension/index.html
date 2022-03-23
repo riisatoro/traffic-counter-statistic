@@ -3,9 +3,16 @@
   <head>
     <link rel="stylesheet" href="main.css">
   </head>  
-  <body class="container">
-    <h1 class="is-white">Welcome to traffic statistic!</h1>
-    <button id="sign-in-button" class="btn">CLICK</button>
+  <body>
+    <div id="anonymous" class="container">
+      <h1 class="is-white">Welcome to traffic statistic!</h1>
+      <button id="sign-in-button" class="btn">CLICK</button>
+    </div>
+
+    <div id="authenticated" class="container d-none">
+      <h1 class="is-white">We already handle your traffic.</h1>
+      <button id="sign-out-button" class="btn">Stop tracking and log out.</button>
+    </div>
 
   </body>
   <script src="authentication.js"></script>

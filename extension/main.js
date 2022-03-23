@@ -1,42 +1,43 @@
 const PAGE_STATUS = 'complete';
-const ACCESS_KEY_STORAGE_NAME = 'traffic-counter-ext-api-key'
 
-let ACCESS_KEY = null
+const prepareSendTabInfo = (tabId, isRemoved = false) => {
+  if (isRemoved) {
+    console.log('removed', tabId);
+    return;
+  }
 
-
-const updateAccessKey = (result) => {
-  if (result) ACCESS_KEY = result.value;
-}
-
-const getVisitedPageURL = (tabId, { status }) => {
-  if (status !== PAGE_STATUS) return;
-  
-  chrome.tabs.get(tabId, function({id, url}){
-    console.log(id, url);
+  chrome.tabs.get(tabId, function({ id, url }){
+    console.log(id, url)
   });
 }
 
-chrome.storage.sync.get(ACCESS_KEY_STORAGE_NAME, updateAccessKey)
-if (ACCESS_KEY) {
-  chrome.tabs.onUpdated.addListener(getVisitedPageURL)
+const handleVisitedTab = (tabId, { status }) => {
+  if (status !== PAGE_STATUS) return;
+  prepareSendTabInfo(tabId);
 }
 
-let IS_AUTHENTICATED = false;
-
+const handleRemovedTab = (tabId) => {
+  prepareSendTabInfo(tabId, isRemoved=true);
+}
 
 const listenAuthMessage = (request, sender, sendResponse) => {
-  console.log(request.message)
   switch (request.message) {
+    case 'login':
+      sendResponse({ message: true })
+      break;
+    case 'logout':
+      sendResponse({ message: false });
+      break;
     case 'isAuthenticated':
       sendResponse({ message: false });
+      break;
     default:
       sendResponse({ message: 'unknown command' });
+      break;
   }
-  // if (request.message === 'login') {
-  //   if (IS_AUTHENTICATED) console.log('ALREADY AUTHENTICATED');
-  // } else if (request.message === 'logout') {
-  //   console.log('LOGOUT')
-  // }
 }
+
+chrome.tabs.onUpdated.addListener(handleVisitedTab);
+chrome.tabs.onRemoved.addListener(handleRemovedTab);
 
 chrome.runtime.onMessage.addListener(listenAuthMessage);
