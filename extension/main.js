@@ -1,5 +1,8 @@
 const PAGE_STATUS = 'complete';
 
+let ACCESS_TOKEN = null;
+let GOOGLE_ACCESS_TOKEN = null;
+
 const CLIENT_ID = encodeURIComponent('177128290409-cerm9ki6g5iod4jd69dhvotthqc6cb7u.apps.googleusercontent.com');
 const RESPONSE_TYPE = encodeURIComponent('id_token');
 const REDIRECT_URI = encodeURIComponent('https://jfikebnfghgianllcfgniieabmmdebdj.chromiumapp.org');
@@ -45,12 +48,14 @@ const handleRemovedTab = (tabId) => {
 }
 
 const parseUrlToken = (url) => {
-  return url.split('id_token=')[1].split('&')[0];
+  return url.split('id_token=')[1].split('&')[0].split('.')[1];
 }
 
 const handleOAuth = (url, sendResponse) => {
-  const token = parseUrlToken(url);
-  console.log(token);
+  console.log(url.split('id_token=')[1].split('&')[0]);
+  GOOGLE_ACCESS_TOKEN = parseUrlToken(url);
+  console.log(GOOGLE_ACCESS_TOKEN)
+  sendResponse({ message: true })
 }
 
 const listenAuthMessage = (request, sender, sendResponse) => {
@@ -74,6 +79,7 @@ const listenAuthMessage = (request, sender, sendResponse) => {
       break;
   }
 }
+
 
 chrome.tabs.onUpdated.addListener(handleVisitedTab);
 chrome.tabs.onRemoved.addListener(handleRemovedTab);
